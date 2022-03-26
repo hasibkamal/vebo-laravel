@@ -11,6 +11,8 @@
 
     @stack('before-styles')
     <link href="{{ mix('css/backend.css') }}" rel="stylesheet">
+    <link href="{{ url('/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ url('/css/bootstrap4-toggle.min.css') }}" rel="stylesheet">
     <livewire:styles />
     @stack('after-styles')
     @yield('header-css')
@@ -41,6 +43,7 @@
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('js/backend.js') }}"></script>
+    <script src="{{ url('/js/bootstrap4-toggle.min.js') }}"></script>
     <livewire:scripts />
     @stack('after-scripts')
     @yield('footer-script')
