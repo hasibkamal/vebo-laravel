@@ -120,7 +120,7 @@
                     <button type="submit" class="btn btn-primary btn-block">Save</button>
                 </div>
                 <div class="col-md-3 form-group">
-                    <button class="btn btn-secondary btn-block">Cancel</button>
+                    <a href="{{ route('admin.sales-companies.index') }}" class="btn btn-secondary btn-block">Cancel</a>
                 </div>
             </div>
         </div><!--card-body-->
