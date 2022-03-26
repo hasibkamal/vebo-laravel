@@ -6,13 +6,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ appName() }} | @yield('title')</title>
     <meta name="description" content="@yield('meta_description', appName())">
-    <meta name="author" content="@yield('meta_author', 'Anthony Rappa')">
+    <meta name="author" content="@yield('meta_author', 'Hasib Kamal Chowdhury')">
     @yield('meta')
 
     @stack('before-styles')
     <link href="{{ mix('css/backend.css') }}" rel="stylesheet">
     <livewire:styles />
     @stack('after-styles')
+    @yield('header-css')
 </head>
 <body class="c-app">
     @include('backend.includes.sidebar')
@@ -21,7 +22,6 @@
         @include('backend.includes.header')
         @include('includes.partials.read-only')
         @include('includes.partials.logged-in-as')
-        @include('includes.partials.announcements')
 
         <div class="c-body">
             <main class="c-main">
@@ -43,5 +43,6 @@
     <script src="{{ mix('js/backend.js') }}"></script>
     <livewire:scripts />
     @stack('after-scripts')
+    @yield('footer-script')
 </body>
 </html>
