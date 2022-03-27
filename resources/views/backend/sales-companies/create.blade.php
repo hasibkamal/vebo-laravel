@@ -120,7 +120,7 @@
                     <button type="submit" class="btn btn-primary btn-block">Save</button>
                 </div>
                 <div class="col-md-3 form-group">
-                    <a href="{{ route('admin.sales-companies.index') }}" class="btn btn-secondary btn-block">Cancel</a>
+                    <a href="{{ route('admin.sales-companies.index') }}" class="btn action-cancel btn-secondary btn-block">Cancel</a>
                 </div>
             </div>
         </div><!--card-body-->
@@ -138,5 +138,25 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+    $(document.body).on('click', '.action-cancel', function (ev) {
+        ev.preventDefault();
+        let redirectURL = "{{ route('admin.sales-companies.index') }}";
+
+        Swal.fire({
+            title: 'Discard Changes?',
+            text: "If you go back without saving, \n all changes will be discarded. Are you sure \n you really want to discard the changes?",
+            // showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: "No",
+            confirmButtonClass: "btn-primary",
+            denyButtonText: `Don't save`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = redirectURL;
+            }
+        })
+    });
 </script>
 @endsection
