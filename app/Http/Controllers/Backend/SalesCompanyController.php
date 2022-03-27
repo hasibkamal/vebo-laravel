@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Backend;
 use App\DataTables\SalesCompaniesDataTable;
 use App\Models\Country;
 use App\Models\Language;
+use App\Models\PaymentMethod;
 use App\Models\SalesCompany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Intervention\Image\Facades\Image;
 
 /**
  * Class DashboardController.
@@ -30,6 +30,7 @@ class SalesCompanyController
         $data['companyId'] = DB::select("SELECT CONCAT('$prefix',LPAD(IFNULL(MAX(SUBSTR(table2.company_id,-5,5) )+1,1),5,'0')) AS company_id FROM (SELECT * FROM sales_companies ) AS table2 WHERE table2.company_id LIKE '$prefix%'")[0]->company_id;
         $data['languages'] = Language::pluck('language_name','language_code');
         $data['countries'] = Country::pluck('country_name','country_code');
+        $data['paymentMethods'] = PaymentMethod::pluck('name','id');
         return view('backend.sales-companies.create',$data);
     }
 

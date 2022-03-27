@@ -111,7 +111,7 @@
                 </div>
                 <div class="col-md-3 form-group">
                     {!! Form::label('accepted_payment_methods','Choose Payment options',['class'=>'required-star']) !!}
-                    {!! Form::select('accepted_payment_methods',[],'',['class'=>'form-control required','placeholder'=>'Select one']) !!}
+                    {!! Form::select('accepted_payment_methods',$paymentMethods,'',['class'=>'form-control required','placeholder'=>'Select one']) !!}
                 </div>
             </div>
 
