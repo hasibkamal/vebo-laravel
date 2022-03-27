@@ -41,9 +41,11 @@
     </div><!--c-wrapper-->
 
     @stack('before-scripts')
+    <script src="{{ url('/js/jquery.min.js') }}"></script>
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('js/backend.js') }}"></script>
+    <script src="{{ url('/js/jquery.validate.js') }}"></script>
     <script src="{{ url('/js/bootstrap4-toggle.min.js') }}"></script>
     <script src="{{ url('/js/sweetalert.min.js') }}"></script>
     <script src="{{ url('/js/custom.js') }}"></script>
