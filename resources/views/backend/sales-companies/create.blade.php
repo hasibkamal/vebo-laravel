@@ -1,7 +1,11 @@
 @extends('backend.layouts.app')
 
 @section('title', __('Dashboard'))
-
+@section('header-css')
+    <link href="{{ url('/css/intlTelInput.css') }}" rel="stylesheet">
+    <link href="{{ url('/css/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ url('/css/custom.css') }}" rel="stylesheet">
+@endsection
 @section('content')
     <div class="card">
         {!! Form::open(['route'=>'admin.sales-companies.store', 'method'=>'post','enctype'=>'multipart/form-data','id'=>'dataForm']) !!}
@@ -83,7 +87,7 @@
                 </div>
                 <div class="col-md-3 form-group">
                     {!! Form::label('contact_person_phone_number','Phone Number',['class'=>'required-star']) !!}
-                    {!! Form::text('contact_person_phone_number','',['class'=>'form-control required','placeholder'=>'Phone number']) !!}
+                    {!! Form::tel('contact_person_phone_number','',['class'=>'form-control contact_person_phone_number required','id'=>'contact_person_phone_number']) !!}
                 </div>
             </div><!--row-->
 
@@ -110,8 +114,9 @@
                     <h5>Accepted means of Payment</h5>
                 </div>
                 <div class="col-md-3 form-group">
-                    {!! Form::label('accepted_payment_methods','Choose Payment options',['class'=>'required-star']) !!}
-                    {!! Form::select('accepted_payment_methods',$paymentMethods,'',['class'=>'form-control required','placeholder'=>'Select one']) !!}
+                    {!! Form::label('payment_methods','Choose Payment options',['class'=>'required-star']) !!}
+                    {!! Form::select('payment_methods',$paymentMethods,'',['class'=>'form-control js-select2 payment_methods required','multiple' => 'multiple']) !!}
+                    {!! Form::hidden('accepted_payment_methods','',['class'=>'accepted_payment_methods']) !!}
                 </div>
             </div>
 
@@ -128,6 +133,10 @@
     </div><!--card-->
 @endsection
 @section('footer-script')
+<script src="{{ url('/js/proper.js') }}"></script>
+<script src="{{ url('/js/intlTelInput.js') }}"></script>
+<script src="{{ url('/js/select2.min.js') }}"></script>
+<script src="{{ url('/js/custom.js') }}"></script>
 <script type="text/javascript">
     function changeFile(input) {
         if (input.files && input.files[0]) {
@@ -164,10 +173,48 @@
         $('#dataForm').validate({
             errorPlacement: function () {
                 $( ".btn-submit" ).prop( "disabled", false );
-                return false;
+            },
+            invalidHandler: function(form, validator) {
+                let errors = validator.numberOfInvalids();
+                if(errors){
+                    Swal.fire({
+                        title: 'Missing mandatory fields',
+                        width: 500,
+                        text: 'Please fill in all required fields.',
+                    })
+                }
             }
-
         });
+
+        $('.payment_methods').on('change',function (){
+            let selectedPaymentMethods = $(this).val();
+            $('.accepted_payment_methods').val(selectedPaymentMethods);
+        });
+    });
+
+    let internationalTelephoneField = document.querySelector("#contact_person_phone_number");
+    window.intlTelInput(internationalTelephoneField, {
+        // allowDropdown: false,
+        // autoHideDialCode: false,
+        // autoPlaceholder: "off",
+        // dropdownContainer: document.body,
+        // excludeCountries: ["us"],
+        // formatOnDisplay: false,
+        // geoIpLookup: function(callback) {
+        //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+        //     var countryCode = (resp && resp.country) ? resp.country : "";
+        //     callback(countryCode);
+        //   });
+        // },
+        // hiddenInput: "full_number",
+        // initialCountry: "auto",
+        // localizedCountries: { 'de': 'Deutschland' },
+        // nationalMode: false,
+        // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+        // placeholderNumberType: "MOBILE",
+        // preferredCountries: ['cn', 'jp'],
+        // separateDialCode: true,
+        utilsScript: "{{ url('/js/IntlTelUtils.js') }}",
     });
 </script>
 @endsection

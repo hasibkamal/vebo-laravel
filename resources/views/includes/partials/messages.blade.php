@@ -7,9 +7,16 @@
 @endif
 
 @if(session()->get('flash_success'))
-    <x-utils.alert type="success" class="header-message">
-        {{ session()->get('flash_success') }}
-    </x-utils.alert>
+{{--    <x-utils.alert type="success" class="header-message">--}}
+{{--        {{ session()->get('flash_success') }}--}}
+{{--    </x-utils.alert>--}}
+    <div class="col-md-4 offset-4 alert alert-primary alert-dismissible fade show" role="alert" style="background-color:#005F9F; color: #ffffff;">
+        <h4 class="alert-heading">Notification</h4>
+        <p>{{ session()->get('flash_success') }}</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 @endif
 
 @if(session()->get('flash_warning'))

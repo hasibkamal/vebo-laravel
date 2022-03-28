@@ -21,7 +21,8 @@ class SalesCompaniesDataTable extends DataTable
         return datatables()
             ->eloquent($this->query())
             ->addColumn('action', function ($data) {
-                return '<a href="/admin/sales-companies/' . $data->id .'" class="btn btn-xs btn-info" title="Sales comapny details"><i class="fa fa-list-alt"></i> Details</a> ';
+                return '-';
+//                return '<a href="/admin/sales-companies/' . $data->id .'" class="btn btn-xs btn-info" title="Sales comapny details"><i class="fa fa-list-alt"></i> Details</a> ';
             })
             ->rawColumns(['action'])
             ->make(true);

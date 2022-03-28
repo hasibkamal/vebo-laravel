@@ -37,19 +37,25 @@ class SalesCompanyController
     public function store(Request $request){
 
         $request->validate([
-            'company_id'           => 'required',
-            'company_name'           => 'required',
-//            'language'           => 'required',
-//            'street_name'           => 'required',
-//            'street_number'           => 'required',
-            'contact_person_first_name'           => 'required',
+            'company_id'                    => 'required',
+            'company_name'                  => 'required',
+            'language'                      => 'required',
+            'street_name'                   => 'required',
+            'street_number'                 => 'required',
+            'contact_person_first_name'     => 'required',
+            'contact_person_last_name'      => 'required',
+            'contact_person_email'          => 'required',
+            'contact_person_phone_number'   => 'required',
+            'accepted_payment_methods'      => 'required',
 
         ],
             [
                 'contact_person_first_name.required'           => 'Contact person first name field is required',
+                'contact_person_last_name.required'           => 'Contact person last name field is required',
+                'contact_person_email.required'           => 'Contact person email name field is required',
+                'contact_person_phone_number.required'           => 'Contact person phone number field is required',
             ]
         );
-
         $salesCompany = new SalesCompany();
         $salesCompany->company_id = $request->input('company_id');
         $salesCompany->company_name = $request->input('company_name');
@@ -86,6 +92,6 @@ class SalesCompanyController
 
         }
         $salesCompany->save();
-        return redirect(route('admin.sales-companies.index'))->with('success','Sales company created successfully!');
+        return redirect(route('admin.sales-companies.index'))->with('flash_success','Sales company was successfully created.');
     }
 }
