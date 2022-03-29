@@ -7,15 +7,15 @@
     <link href="{{ url('/css/custom.css') }}" rel="stylesheet">
 @endsection
 @section('content')
-    <div class="card">
+    <div class="card vebo-content-card">
         {!! Form::open(['route'=>'admin.sales-companies.store', 'method'=>'post','enctype'=>'multipart/form-data','id'=>'dataForm']) !!}
         <div class="card-body">
-            <h5><strong> Add New Sales Company</strong></h5>
-            <div class="row mt-5">
+            <h5 class="vebo-section-heading-title"><strong> Add New Sales Company</strong></h5>
+            <div class="row mt-5 vebo-w100">
+                <div class="vebo-logo-section vebo-m0">
+                    <img src="https://wallpaperaccess.com/full/3853138.jpg" class="vebo-company-logo company-logo img img-thumbnail">
+                </div>
                 <div class="col-md-3 form-group custom-control-inline">
-                    <div class="col-md-3 pl-0">
-                        <img src="https://wallpaperaccess.com/full/3853138.jpg" class="company-logo img img-thumbnail" style="border-radius: 65px; height: 65px; width: 65px;">
-                    </div>
                     <div class="col-md-9">
                         {!! Form::label('company_logo','Company Logo',['class'=>'required-star']) !!}
                         <p class="text-secondary">
@@ -96,7 +96,7 @@
                     <h5>Optional Features</h5>
                 </div>
                 <div class="col-md-3 form-group">
-                    <label><i class="fa fa-lock-open"></i> API for Lock Connection</label>
+                    <label><i class="fa fa-unlock"></i> API for Lock Connection</label>
                     <p><input name="is_api_lock_connection" type="checkbox" data-toggle="toggle" data-size="xs" data-on="Active" data-off="Inactive"></p>
                 </div>
                 <div class="col-md-3 form-group">
@@ -104,7 +104,7 @@
                     <p><input name="is_api_lock_connection" type="checkbox" data-toggle="toggle" data-size="xs" data-on="Active" data-off="Inactive"></p>
                 </div>
                 <div class="col-md-3 form-group">
-                    <label><i class="fa fa-circle"></i> Feedback Option</label>
+                    <label><i class="fa fa-comment"></i> Feedback Option</label>
                     <p><input name="is_api_lock_connection" type="checkbox" data-toggle="toggle" data-size="xs" data-on="Active" data-off="Inactive"></p>
                 </div>
             </div>

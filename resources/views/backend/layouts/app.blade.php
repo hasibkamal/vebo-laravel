@@ -14,11 +14,21 @@
     <link href="{{ url('/css/bootstrap4-toggle.min.css') }}" rel="stylesheet">
     <link href="{{ url('/css/sweetalert.min.css') }}" rel="stylesheet">
     <link href="{{ url('/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+
+    <!-- font family cdn -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js" integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <livewire:styles />
     @stack('after-styles')
     @yield('header-css')
 </head>
-<body class="c-app">
+<body class="c-app" id="vebo-app">
     @include('backend.includes.sidebar')
 
     <div class="c-wrapper c-fixed-components">
@@ -27,8 +37,8 @@
         @include('includes.partials.logged-in-as')
 
         <div class="c-body">
-            <main class="c-main">
-                <div class="container-fluid">
+            <main class="c-main vebo-main">
+                <div class="container-fluid vebo-wrapper">
                     <div class="fade-in">
                         @include('includes.partials.messages')
                         @yield('content')
