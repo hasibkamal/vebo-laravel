@@ -218,7 +218,7 @@
         });
 
         $(document).on("change", ".vebo-switch", function(){
-            $(document).find('span.switch-text').html('Inactive');
+            $(this).closest("p").find('span.switch-text').html('Inactive');
             if($(this).prop("checked") == true)
             {
                 $(this).prop("checked", true);

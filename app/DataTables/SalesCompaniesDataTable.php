@@ -19,10 +19,18 @@ class SalesCompaniesDataTable extends DataTable
      */
     public function ajax()
     {
+        $html = "";
         return datatables()
             ->eloquent($this->query())
             ->addColumn('action', function ($data) {
-                return '<a href="/admin/sales-companies/' . $data->id .'" title="Sales comapny details"><i class="c-icon c-icon-lg cil-menu"></i></a> ';
+                $html = '<a href="javascript:void(0)" class="action-link" title="Sales comapny details"><i class="c-icon c-icon-lg cil-menu"></i></a> ';
+                $html .='<div class="action-options-append vebo-display-none">
+                    <ul class="action-options">
+                        <li class="details-action"><a href="/admin/sales-companies/details/' . $data->id .'">Details</a></li>
+                        <li class="edit-action"><a href="/admin/sales-companies/edit/' . $data->id .'">Edit</a></li>
+                    </ul>
+                </div>';
+                return $html;
             })
             ->editColumn('created_at',function($data){
                 return str_replace('-','.',Carbon::parse($data->created_at)->toDateString());
@@ -33,7 +41,7 @@ class SalesCompaniesDataTable extends DataTable
             ->editColumn('is_api_lock_connection',function ($data){
                 $is_api_lock_connection = ($data->is_api_lock_connection) ? "<i class='fa fa-unlock'></i>" : "<i class='fa fa-unlock text-secondary'></i>";
                 $is_push_notification = ($data->is_push_notification) ? "<i class='fa fa-bell pl-4 pr-4'></i>" : "<i class='fa fa-bell text-secondary pl-4 pr-4'></i>";
-                $is_feedback_option = ($data->is_feedback_option) ? "<i class='fa fa-circle'></i>" : "<i class='fa fa fa-circle text-secondary'></i>";
+                $is_feedback_option = ($data->is_feedback_option) ? "<i class='fa fa-comment'></i>" : "<i class='fa fa fa-comment text-secondary'></i>";
                 return $is_api_lock_connection .' '. $is_push_notification .' '. $is_feedback_option;
             })
             ->editColumn('status',function ($data){
@@ -77,7 +85,7 @@ class SalesCompaniesDataTable extends DataTable
                 'searchDelay' => 350,
                 "serverSide" => true,
                 'applicant' => [[1, 'asc']],
-                'buttons' => ['excel', 'csv', 'print', 'reset', 'reload'],
+                'buttons' => [],
                 'pageLength' => 10,
                 'lengthMenu' => [[10, 20, 25, 50, 100, 500, -1], [10, 20, 25, 50, 100, 500, 'All']],
             ]);

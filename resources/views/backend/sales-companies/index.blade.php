@@ -5,22 +5,21 @@
     {!! Html::style('css/buttons.dataTables.min.css') !!}
 @endsection
 @section('content')
-    <div class="card">
-        <div class="card-header">
+    <div class="card vebo-border-none">
+        <div class="card-header vebo-border-none">
             <div class="row">
-                <div class="col-sm-5">
-                    <h5><i class="fa fa-list-alt"></i> Sales <strong>Companies</strong></h5>
+                <div class="col-sm-5 pull-left">
+                    <h5 class="vebo-section-title">Sales Companies</h5>
                 </div><!--col-->
                 <div class="col-sm-7 pull-right">
                     <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
-                        <a href="{{ route('admin.sales-companies.create') }}" class="btn btn-sm btn-success" title="Create new"
-                           data-original-title="Create New">
-                            <i class="fa fa-plus-circle"></i> New Sales Company
+                        <a href="{{ route('admin.sales-companies.create') }}" class="btn btn-sm btn-success vebo-create-btn" title="Create new"
+                            data-original-title="Create New">
+                            <i class="fa fa-plus"></i> Add New Sales Company
                         </a>
                     </div>
                 </div><!--col-->
             </div>
-
         </div>
         <div class="card-body">
             <div class="row mt-4">
@@ -50,6 +49,19 @@
             let redirectURL = "{{ route('admin.sales-companies.index') }}";
             warnBeforeAction(URL, redirectURL);
         });
+
+        $(document.body).on('click', '.action-link', function (ev) {
+            ev.preventDefault();
+            if($(this).closest("td").find('.action-options-append').hasClass("vebo-display-none") == true)
+            {
+                $(this).closest("td").find('.action-options-append').removeClass("vebo-display-none");
+            }
+            else
+            {
+                $(this).closest("td").find('.action-options-append').addClass("vebo-display-none");
+            }
+        });
+
     </script>
 @endsection
 

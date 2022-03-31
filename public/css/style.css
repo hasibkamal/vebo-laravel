@@ -41,6 +41,7 @@
     margin-right: 12px;
 }
 
+#sidebar .vebo-nav-bg .vebo-nav-item a.vebo-nav-link.c-active,
 #sidebar .vebo-nav-bg .vebo-nav-item a.vebo-nav-link:hover,
 #sidebar .vebo-nav-bg .vebo-nav-item a.vebo-nav-link:active,
 #sidebar .vebo-nav-bg .vebo-nav-item a.vebo-nav-link:focus {
@@ -211,4 +212,104 @@ input:checked + .slider {
 
 .select2-results__option {
     border-bottom: 1px solid #C8C8C8;
+}
+
+.vebo-border-none {
+    border: none;
+}
+
+.vebo-section-title {
+    color: #003577;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.vebo-create-btn {
+    background-color: #130945;
+    width: 326px;
+    height: 40px;
+    border: 1px solid #130945;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: 700;
+}
+
+.vebo-create-btn:hover {
+    background-color: #130945;
+    border: 1px solid #130945;
+}
+
+.dataTable thead tr th {
+    border: none;
+    background-color: rgb(255 255 255);
+}
+
+.dataTable tbody tr {
+    background-color: #EFF3F6;
+}
+
+.dataTable tbody tr td {
+    color:#323232;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: normal;
+    border: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+.dataTables_length {
+    display: none;
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: left !important;
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+    width: 350px !important;
+    height: 40px;
+    border: 1px solid #ABBECC;
+    border-radius: 5px;
+}
+
+.action-options-append {
+    position: relative;
+}
+
+ul.action-options {
+    width: 120px;
+    height: auto;
+    background-color: rgb(255 255 255);
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    right: 60px;
+    top: auto;
+    left: auto;
+    z-index: 1111;
+}
+
+ul.action-options li {
+    padding: 10px;
+    list-style: none;
+    width: 100%;
+    color: #003577;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+ul.action-options li a {
+    text-decoration: none;
+}
+
+ul.action-options li.details-action {
+    background-color: #E5EBEF;
 }
