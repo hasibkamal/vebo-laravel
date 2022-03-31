@@ -94,4 +94,9 @@ class SalesCompanyController
         $salesCompany->save();
         return redirect(route('admin.sales-companies.index'))->with('flash_success','Sales company was successfully created.');
     }
+
+    public function show($id)
+    {
+        return view("backend.sales-companies.show");
+    }
 }
