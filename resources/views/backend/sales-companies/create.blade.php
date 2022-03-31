@@ -97,15 +97,36 @@
                 </div>
                 <div class="col-md-3 form-group">
                     <label><i class="fa fa-unlock"></i> API for Lock Connection</label>
-                    <p><input name="is_api_lock_connection" type="checkbox" data-toggle="toggle" data-size="xs" data-on="Active" data-off="Inactive"></p>
+                    <p>
+                        <!-- <input name="is_api_lock_connection" type="checkbox" data-toggle="toggle" data-size="xs" data-on="Active" data-off="Inactive"> -->
+                        <label class="switch">
+                            <input type="checkbox" class="vebo-switch" name="is_api_lock_connection">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="switch-text">Inactive</span>
+                    </p>
                 </div>
                 <div class="col-md-3 form-group">
                     <label><i class="fa fa-bell"></i> Push Notification</label>
-                    <p><input name="is_api_lock_connection" type="checkbox" data-toggle="toggle" data-size="xs" data-on="Active" data-off="Inactive"></p>
+                    <p>
+                        <!-- <input name="is_api_lock_connection" type="checkbox" data-toggle="toggle" data-size="xs" data-on="Active" data-off="Inactive"> -->
+                        <label class="switch">
+                            <input type="checkbox" class="vebo-switch" name="push_notification">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="switch-text">Inactive</span>
+                    </p>
                 </div>
                 <div class="col-md-3 form-group">
                     <label><i class="fa fa-comment"></i> Feedback Option</label>
-                    <p><input name="is_api_lock_connection" type="checkbox" data-toggle="toggle" data-size="xs" data-on="Active" data-off="Inactive"></p>
+                    <p>
+                        <!-- <input name="is_api_lock_connection" type="checkbox" data-toggle="toggle" data-size="xs" data-on="Active" data-off="Inactive"> -->
+                        <label class="switch">
+                            <input type="checkbox" class="vebo-switch" name="feedback_option">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="switch-text">Inactive</span>
+                    </p>
                 </div>
             </div>
 
@@ -115,7 +136,12 @@
                 </div>
                 <div class="col-md-3 form-group">
                     {!! Form::label('payment_methods','Choose Payment options',['class'=>'required-star']) !!}
-                    {!! Form::select('payment_methods',$paymentMethods,'',['class'=>'form-control js-select2 payment_methods required','multiple' => 'multiple']) !!}
+                    <!-- {!! Form::select('payment_methods',$paymentMethods,'',['class'=>'form-control js-select2 payment_methods required','multiple' => 'multiple']) !!} -->
+                    <select name="payment_methods" id="payment_methods" class="form-control js-select2 payment_methods required" multiple>
+                        @foreach( $paymentMethods as $key => $paymentMethod)
+                            <option value="{{ $key }}">{{ $paymentMethod }}</option>
+                        @endforeach
+                    </select>
                     {!! Form::hidden('accepted_payment_methods','',['class'=>'accepted_payment_methods']) !!}
                 </div>
             </div>
@@ -189,6 +215,16 @@
         $('.payment_methods').on('change',function (){
             let selectedPaymentMethods = $(this).val();
             $('.accepted_payment_methods').val(selectedPaymentMethods);
+        });
+
+        $(document).on("change", ".vebo-switch", function(){
+            $(document).find('span.switch-text').html('Inactive');
+            if($(this).prop("checked") == true)
+            {
+                $(this).prop("checked", true);
+                $(this).closest("p").find('span.switch-text').html('Active');
+
+            }
         });
     });
 
