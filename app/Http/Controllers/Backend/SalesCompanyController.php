@@ -21,7 +21,11 @@ class SalesCompanyController
 
     public function index(SalesCompaniesDataTable $dataTable)
     {
-        return $dataTable->render("backend.sales-companies.index");
+        $data = array();
+        $data['sales_companies'] = SalesCompany::pluck('company_name','id');
+        $data['cities'] = SalesCompany::pluck('city', 'city');
+        $data['status'] = ["Active", "In-active", "Pending", "Suspended"];
+        return $dataTable->render("backend.sales-companies.index", $data);
     }
 
     public function create()

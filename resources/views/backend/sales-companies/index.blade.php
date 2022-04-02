@@ -22,6 +22,36 @@
             </div>
         </div>
         <div class="card-body">
+            <div class="row vebo-filter-bg vebo-filter-section">
+                <div class="col-sm-10 pull-left vebo-filter-options">
+                    <div class="row vebo-filter-row vebo-display-none">
+                        <div class="col-sm-3">
+                            {!! Form::label('created_at','Created Date',['class'=>'']) !!}
+                            {!! Form::date('created_at','',['class'=>'form-control','placeholder'=>'']) !!}
+                        </div>
+                        <div class="col-sm-3">
+                            {!! Form::label('sales_company','Sales Company',['class'=>'']) !!}
+                            {!! Form::select('sales_company',$sales_companies,'',['class'=>'form-control']) !!}
+                        </div>
+                        <div class="col-sm-3">
+                            {!! Form::label('city','City',['class'=>'']) !!}
+                            {!! Form::select('city',$cities,'',['class'=>'form-control']) !!}
+                        </div>
+                        <div class="col-sm-3">
+                            {!! Form::label('status','Status',['class'=>'']) !!}
+                            {!! Form::select('status',$status,'',['class'=>'form-control']) !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2 pull-right">
+                    <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
+                        <a href="javascript:void(0)" class="btn btn-sm btn-success vebo-filter-btn" title="Filter"
+                            data-original-title="Create New">
+                            <i class="fa fa-filter"></i> Filter
+                        </a>
+                    </div>
+                </div><!--col-->
+            </div>
             <div class="row mt-4">
                 <div class="col">
                     <div class="table-responsive">
@@ -60,6 +90,21 @@
             {
                 $(this).closest("td").find('.action-options-append').addClass("vebo-display-none");
             }
+        });
+
+        $(document.body).on("click", ".vebo-filter-btn", function(ev){
+            ev.preventDefault();  
+            $(this).removeClass("filter-active");  
+            $(this).removeAttr("style");        
+            if($(this).closest(".vebo-filter-section").find(".vebo-filter-options .vebo-filter-row").hasClass("vebo-display-none") == true)
+            {
+                $(this).closest(".vebo-filter-section").find(".vebo-filter-options .vebo-filter-row").removeClass("vebo-display-none");
+                $(this).addClass("filter-active");
+                $(this).attr("style", "margin-top: 25px;");
+            }else{                
+                $(this).closest(".vebo-filter-section").find(".vebo-filter-options .vebo-filter-row").addClass("vebo-display-none");
+            }
+
         });
 
     </script>

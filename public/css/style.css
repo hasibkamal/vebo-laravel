@@ -227,7 +227,7 @@ input:checked + .slider {
     line-height: 24px;
 }
 
-.vebo-create-btn {
+a.btn.vebo-create-btn {
     background-color: #130945;
     width: 326px;
     height: 40px;
@@ -235,13 +235,16 @@ input:checked + .slider {
     border-radius: 5px;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    line-height: 25px;
+    line-height: 30px;
     font-weight: 700;
 }
 
-.vebo-create-btn:hover {
+a.btn.vebo-create-btn:not(:disabled):hover,
+a.btn.vebo-create-btn:not(:disabled):active,
+a.btn.vebo-create-btn:not(:disabled):focus {
     background-color: #130945;
     border: 1px solid #130945;
+    box-shadow: none;
 }
 
 .dataTable thead tr th {
@@ -312,4 +315,53 @@ ul.action-options li a {
 
 ul.action-options li.details-action {
     background-color: #E5EBEF;
+}
+
+a.btn.vebo-filter-btn {
+    background-color: rgb(255 255 255);
+    color: #130945;
+    width: 126px;
+    height: 40px;
+    border: 1px solid rgb(255 255 255);
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 30px;
+    font-weight: 700;
+}
+
+a.btn.vebo-filter-btn.filter-active,
+a.btn.vebo-filter-btn:not(:disabled):hover,
+a.btn.vebo-filter-btn:not(:disabled):active,
+a.btn.vebo-filter-btn:not(:disabled):focus {
+    color: rgb(255 255 255);
+    background-color: #130945;
+    border: 1px solid #130945;
+    box-shadow: none;
+}
+
+a.btn.vebo-filter-btn svg {
+    margin-right: 10px;
+}
+
+a.btn.vebo-filter-btn svg path {
+    fill: none;
+    stroke: #130945;
+    stroke-width: 28;
+}
+
+a.btn.vebo-filter-btn.filter-active svg path,
+a.btn.vebo-filter-btn:not(:disabled):hover svg path,
+a.btn.vebo-filter-btn:not(:disabled):active svg path,
+a.btn.vebo-filter-btn:not(:disabled):focus svg path {
+    fill: none;
+    stroke: rgb(255 255 255);
+    stroke-width: 28;
+}
+
+.vebo-filter-bg {
+    width: 100%;
+    background-color: #EFF3F6;
+    border-radius: 5px;
+    padding: 10px;
 }
