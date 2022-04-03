@@ -65,6 +65,10 @@ class SalesCompanyController
                 'contact_person_phone_number.required'           => 'Contact person phone number field is required',
             ]
         );
+
+
+        $contact_number = '+'.$request->input('carrierCode').'-'.$request->input('contact_person_phone_number');
+        
         $salesCompany = new SalesCompany();
         $salesCompany->company_id = $request->input('company_id');
         $salesCompany->company_name = $request->input('company_name');
@@ -77,16 +81,18 @@ class SalesCompanyController
         $salesCompany->contact_person_first_name = $request->input('contact_person_first_name');
         $salesCompany->contact_person_last_name = $request->input('contact_person_last_name');
         $salesCompany->contact_person_email = $request->input('contact_person_email');
-        $salesCompany->contact_person_phone_number = $request->input('contact_person_phone_number');
+        // $salesCompany->contact_person_phone_number = $request->input('contact_person_phone_number');
+        $salesCompany->contact_person_phone_number = $contact_number;
         $salesCompany->is_api_lock_connection = $request->input('is_api_lock_connection') ? 1 : 0;
         $salesCompany->is_push_notification = $request->input('is_push_notification') ? 1 : 0;
         $salesCompany->is_feedback_option = $request->input('is_feedback_option') ? 1 : 0;
-        $salesCompany->accepted_payment_methods = $request->input('accepted_payment_methods');
+        $salesCompany->accepted_payment_methods = json_encode($request->input('accepted_payment_methods'));
         $salesCompany->status = 1;
+
         if($request->hasFile('photo')){
             $path = "uploads/company-logo/";
             $prefix = $salesCompany->company_id;
-            $_companyLogo = $request->file('company_logo');
+            $_companyLogo = $request->file('photo');
             $mimeType = $_companyLogo->getClientMimeType();
 
             if (!in_array($mimeType, ['image/jpg','image/jpeg','image/png']))
@@ -101,7 +107,8 @@ class SalesCompanyController
 
         }
         $salesCompany->save();
-        return redirect(route('admin.sales-companies.index'))->with('flash_success','Sales company was successfully created.');
+        return redirect(route('admin.sales-companies.index'))
+                ->with('flash_success','Sales company was successfully created.');
     }
 
     public function show($id)
