@@ -38,7 +38,7 @@ class SalesCompanyController
         $data['paymentMethods'] = app(PaymentMethod::class)
                     ->where('status', 1)
                     ->get(['id', 'name', 'logo']);
-        return view('backend.sales-companies.create',$data);
+        return view('backend.sales-companies.create', $data);
     }
 
     public function store(Request $request){
@@ -104,6 +104,34 @@ class SalesCompanyController
 
     public function show($id)
     {
-        return view("backend.sales-companies.show");
+        $data['company_details'] = DB::table('sales_companies as sc')
+                                    ->join('languages as lang', 'lang.id', 'sc.language')
+                                    ->join('countries as contr', 'contr.country_code', 'sc.country')
+                                    ->where('sc.id', $id)
+                                    ->where('sc.status', 1)
+                                    ->select(
+                                        'sc.company_logo',
+                                        'sc.company_id',
+                                        'sc.company_name',
+                                        'lang.language_name',
+                                        'sc.street_name',
+                                        'sc.street_number',
+                                        'sc.zip_code',
+                                        'sc.city',
+                                        'contr.country_name',
+                                        'sc.contact_person_first_name',
+                                        'sc.contact_person_last_name',
+                                        'sc.contact_person_email',
+                                        'sc.contact_person_phone_number',
+                                        'sc.is_api_lock_connection',
+                                        'sc.is_push_notification',
+                                        'sc.is_feedback_option',
+                                        'sc.accepted_payment_methods',
+                                        'sc.created_at'
+                                    )
+                                    ->first();
+        $data['paymentMethods'] = PaymentMethod::pluck('name', 'id');
+        
+        return view("backend.sales-companies.show", $data);
     }
 }

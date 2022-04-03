@@ -390,3 +390,54 @@ img.payment_methods_icon {
     padding: 5px;
     right: 0px;
 }
+
+.swal2-popup {
+    border-radius: 5px !important;
+    width: 450px !important;
+}
+
+.swal2-title {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    font-family: 'Roboto' !important;
+    line-height: 25px !important;
+    color: #003577 !important;
+}
+
+.swal2-content {
+    padding-top: 18px;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Roboto';
+    line-height: 25px;
+    color: #323232;
+}
+
+.swal2-styled.swal2-confirm {
+    background-color: #130945 !important;
+    color: rgb(255 255 255) !important;
+    font-family: 'Roboto' !important;
+    font-size: 16px;
+    height: 40px;
+    line-height: 20px;
+}
+
+.swal2-styled.swal2-cancel {
+    background-color: #E5EBEF !important;
+    color: #7292A9 !important;
+    font-family: 'Roboto' !important;
+    font-size: 16px;
+    height: 40px;
+    line-height: 20px;
+}
+
+.btn-primary:focus,
+.btn-secondary:focus,
+.btn-info:focus,
+.btn-warning:focus,
+.btn-danger:focus,
+.btn-success:focus,
+.btn-dark:focus,
+.swal2-styled:focus {
+    box-shadow: none !important;
+}

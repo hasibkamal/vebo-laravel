@@ -26,8 +26,8 @@ class SalesCompaniesDataTable extends DataTable
                 $html = '<a href="javascript:void(0)" class="action-link" title="Sales comapny details"><i class="c-icon c-icon-lg cil-menu"></i></a> ';
                 $html .='<div class="action-options-append vebo-display-none">
                     <ul class="action-options">
-                        <li class="details-action"><a href="/admin/sales-companies/details/' . $data->id .'">Details</a></li>
-                        <li class="edit-action"><a href="/admin/sales-companies/edit/' . $data->id .'">Edit</a></li>
+                        <li class="details-action"><a href="/admin/sales-companies/' . $data->id .'">Details</a></li>
+                        <li class="edit-action"><a href="/admin/sales-companies/' . $data->id .'">Edit</a></li>
                     </ul>
                 </div>';
                 return $html;
