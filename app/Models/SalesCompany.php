@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -38,7 +39,24 @@ class SalesCompany extends Model
         'deleted_at'
     ];
 
-    public static function getData(){
-        return SalesCompany::query();
+    public static function getData($params){
+        $query = SalesCompany::query();
+        if(isset($params['created_at']) && !empty($params['created_at'])){
+            $query->where('sales_companies.created_at','>=',Carbon::parse($params['created_at'])->startOfDay());
+        }
+
+        if(isset($params['sales_company'])){
+            $query->where('sales_companies.id',$params['sales_company']);
+        }
+
+        if(isset($params['city'])){
+            $query->where('sales_companies.city',$params['city']);
+        }
+
+        if(isset($params['status'])){
+            $query->where('sales_companies.status',$params['status']);
+        }
+
+        return $query;
     }
 }

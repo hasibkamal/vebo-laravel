@@ -19,13 +19,15 @@ class SalesCompanyController
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
 
-    public function index(SalesCompaniesDataTable $dataTable)
+    public function index(SalesCompaniesDataTable $dataTable,Request $request)
     {
         $data = array();
+        $params = $this->getSearchParams($request);
+        $data['params'] = $params;
         $data['sales_companies'] = SalesCompany::pluck('company_name','id');
         $data['cities'] = SalesCompany::pluck('city', 'city');
         $data['status'] = ["Active", "In-active", "Pending", "Suspended"];
-        return $dataTable->render("backend.sales-companies.index", $data);
+        return $dataTable->with($params)->render("backend.sales-companies.index", $data);
     }
 
     public function create()
@@ -134,4 +136,27 @@ class SalesCompanyController
         
         return view("backend.sales-companies.show", $data);
     }
+
+    public function getSearchParams($request){
+        $params =[];
+        if(isset($request->created_at) && !empty($request->created_at)) {
+            $params['created_at'] = $request->created_at;
+        }
+
+        if(isset($request->sales_company) && !empty($request->sales_company)) {
+            $params['sales_company'] = $request->sales_company;
+        }
+        if(isset($request->city) && !empty($request->city)) {
+            $params['city'] =  $request->city;
+        }
+
+        if(isset($request->status) && !empty($request->status)) {
+            $params['status'] =  $request->status;
+        }
+
+        return $params;
+
+    }
+
+
 }
