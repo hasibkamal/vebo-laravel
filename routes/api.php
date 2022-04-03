@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +11,32 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
+
+Route::group(['middleware' => ['api'], 'namespace' => 'App\Http\Controllers\Api'], function() {
+    /** API: Last Company ID
+     * Type: GET
+     */
+    Route::get('/last-company-id', 'SalesCompanyApiController@lastCompanyId');
+
+
+    /**
+     * API: Sales Company Store
+     * Type: POST
+     */
+    Route::post('/sales-company-store', 'SalesCompanyApiController@store');
+
+
+    /**
+     * API: Country List
+     * Type: GET
+     */
+    Route::get('/country-list','CountryApiController@getCountryList');
+
+
+    /**
+     * API: Country List
+     * Type: GET
+     */
+    Route::get('/language-list','LanguageApiController@getLanguageList');
+
+});
