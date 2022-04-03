@@ -28,8 +28,7 @@ class EmployeeApiController extends ApiController
         $data = array();
         try{
             $this->checkApiRequest($request);
-            $prefix = 'MU';
-            $employeeNumber = DB::select("SELECT CONCAT('$prefix',LPAD(IFNULL(MAX(SUBSTR(table2.employee_number,-5,5) )+1,1),5,'0')) AS employee_number FROM (SELECT * FROM employees ) AS table2 WHERE table2.employee_number LIKE '$prefix%'")[0]->employee_number;
+            $employeeNumber = employeeNumber();
 
             $data['status']             =   'success';
             $data['status_code']        =   $this->getStatusCode();
