@@ -137,9 +137,15 @@
                 <div class="col-md-3 form-group">
                     {!! Form::label('payment_methods','Choose Payment options',['class'=>'required-star']) !!}
                     <!-- {!! Form::select('payment_methods',$paymentMethods,'',['class'=>'form-control js-select2 payment_methods required','multiple' => 'multiple']) !!} -->
-                    <select name="payment_methods" id="payment_methods" class="form-control js-select2 payment_methods required" multiple>
+                    <select name="payment_methods" id="payment_methods" class="form-control payment_methods required" multiple>
                         @foreach( $paymentMethods as $key => $paymentMethod)
-                            <option value="{{ $key }}">{{ $paymentMethod }}</option>
+                            <?php
+
+                                $imgSrc = '/img/payment_methods/mastercard.svg';
+                                if($paymentMethod->logo != "") $imgSrc = '/img/payment_methods/'. $paymentMethod->logo;
+                            
+                            ?>
+                            <option value="{{ $paymentMethod->id }}" data-image="{{ $imgSrc }}">{{ $paymentMethod->name }}</option>
                         @endforeach
                     </select>
                     {!! Form::hidden('accepted_payment_methods','',['class'=>'accepted_payment_methods']) !!}
@@ -251,6 +257,31 @@
         // preferredCountries: ['cn', 'jp'],
         // separateDialCode: true,
         utilsScript: "{{ url('/js/IntlTelUtils.js') }}",
+    });
+
+    $(document).ready(function(){
+        $("#payment_methods").select2({
+            templateResult: formatState,
+            templateSelection: formatState
+        });
+
+        function formatState (opt) {
+            if (!opt.id) {
+                return opt.text.toUpperCase();
+            } 
+
+            var optimage = $(opt.element).attr('data-image'); 
+
+            if(!optimage){
+                return opt.text.toUpperCase();
+            } else {                    
+                var $opt = $(
+                '<span><img src="' + optimage + '" class="payment_methods_icon" /> ' + opt.text.toUpperCase() + '</span>'
+                );
+                return $opt;
+            }
+        };
+
     });
 </script>
 @endsection

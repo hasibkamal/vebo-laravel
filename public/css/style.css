@@ -365,3 +365,28 @@ a.btn.vebo-filter-btn:not(:disabled):focus svg path {
     border-radius: 5px;
     padding: 10px;
 }
+
+.select2-results__option {
+    position: relative;
+}
+
+img.payment_methods_icon {
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    width: 30px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    position: relative;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice span:not(.select2-selection__choice__remove) {
+    width: max-content;
+    margin-right: 25px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice span img.payment_methods_icon {
+    padding: 5px;
+    right: 0px;
+}

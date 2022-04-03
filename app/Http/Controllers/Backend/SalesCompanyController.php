@@ -34,7 +34,10 @@ class SalesCompanyController
         $data['companyId'] = DB::select("SELECT CONCAT('$prefix',LPAD(IFNULL(MAX(SUBSTR(table2.company_id,-5,5) )+1,1),5,'0')) AS company_id FROM (SELECT * FROM sales_companies ) AS table2 WHERE table2.company_id LIKE '$prefix%'")[0]->company_id;
         $data['languages'] = Language::pluck('language_name','id');
         $data['countries'] = Country::pluck('country_name','country_code');
-        $data['paymentMethods'] = PaymentMethod::pluck('name','id');
+        // $data['paymentMethods'] = PaymentMethod::pluck('name', 'logo','id');
+        $data['paymentMethods'] = app(PaymentMethod::class)
+                    ->where('status', 1)
+                    ->get(['id', 'name', 'logo']);
         return view('backend.sales-companies.create',$data);
     }
 
