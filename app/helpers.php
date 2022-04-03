@@ -1,6 +1,7 @@
 <?php
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 /*
@@ -97,3 +98,23 @@ if (! function_exists('writeToLog')) {
         }
     }
 }
+
+
+if (! function_exists('employeeNumber')) {
+
+    /**
+     * Write custom messages to Log
+     *
+     * @param $logMessage
+     * @param string $logType
+     * @return \Illuminate\Config\Repository|mixed
+     */
+    function employeeNumber()
+    {
+        $prefix = 'MU';
+        return DB::select("SELECT CONCAT('$prefix',LPAD(IFNULL(MAX(SUBSTR(table2.employee_number,-5,5) )+1,1),5,'0')) AS employee_number FROM (SELECT * FROM employees ) AS table2 WHERE table2.employee_number LIKE '$prefix%'")[0]->employee_number;
+
+    }
+}
+
+
