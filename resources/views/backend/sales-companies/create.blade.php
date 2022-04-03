@@ -2,7 +2,8 @@
 
 @section('title', __('Dashboard'))
 @section('header-css')
-    <link href="{{ url('/css/intlTelInput.css') }}" rel="stylesheet">
+    <!-- <link href="{{ url('/css/intlTelInput.css') }}" rel="stylesheet"> -->
+    <link href="{{ url('/css/intlInputPhone.min.css') }}" rel="stylesheet">
     <link href="{{ url('/css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ url('/css/custom.css') }}" rel="stylesheet">
 @endsection
@@ -10,7 +11,9 @@
     <div class="card vebo-content-card">
         {!! Form::open(['route'=>'admin.sales-companies.store', 'method'=>'post','enctype'=>'multipart/form-data','id'=>'dataForm']) !!}
         <div class="card-body">
+
             <h5 class="vebo-section-heading-title"><strong> Add New Sales Company</strong></h5>
+
             <div class="row mt-5 vebo-w100">
                 <div class="vebo-logo-section vebo-m0">
                     <img src="https://wallpaperaccess.com/full/3853138.jpg" class="vebo-company-logo company-logo img img-thumbnail">
@@ -19,7 +22,7 @@
                     <div class="col-md-9">
                         {!! Form::label('company_logo','Company Logo',['class'=>'required-star']) !!}
                         <p class="text-secondary">
-                            <label><i class="fa fa-cloud-upload-alt"></i> Upload Logo<input onchange="changeFile(this)" type="file" hidden></label>
+                            <label><i class="fa fa-cloud-upload-alt"></i> Upload Logo<input onchange="changeFile(this)" name="photo" type="file" hidden></label>
                         </p>
                     </div>
                 </div>
@@ -29,6 +32,7 @@
                     <p class="text-secondary">{{ $companyId }}</p>
                 </div>
             </div><!--row-->
+
             <div class="row mt-4">
                 <div class="col-md-3 form-group">
                     {!! Form::label('company_name','Company Name',['class'=>'required-star']) !!}
@@ -39,9 +43,10 @@
                     {!! Form::select('language',$languages,'',['class'=>'form-control required','placeholder'=>'Select one']) !!}
                 </div>
             </div><!--row-->
+
             <div class="row mt-4">
                 <div class="col-md-12 form-group">
-                    <h5>Company Address</h5>
+                    <h5 class="section-heading">Company Address</h5>
                 </div>
                 <div class="col-md-3 form-group">
                     {!! Form::label('street_name','Street Name',['class'=>'required-star']) !!}
@@ -56,6 +61,7 @@
                     {!! Form::text('zip_code','',['class'=>'form-control required','placeholder'=>'Zip code']) !!}
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-3 form-group">
                     {!! Form::label('city','City',['class'=>'required-star']) !!}
@@ -69,7 +75,7 @@
 
             <div class="row mt-4">
                 <div class="col-md-12 form-group">
-                    <h5>Contact Person</h5>
+                    <h5 class="section-heading">Contact Person</h5>
                 </div>
                 <div class="col-md-3 form-group">
                     {!! Form::label('contact_person_first_name','First Name',['class'=>'required-star']) !!}
@@ -80,6 +86,7 @@
                     {!! Form::text('contact_person_last_name','',['class'=>'form-control required','placeholder'=>'Last name']) !!}
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-3 form-group">
                     {!! Form::label('contact_person_email','Email',['class'=>'required-star']) !!}
@@ -87,16 +94,19 @@
                 </div>
                 <div class="col-md-3 form-group">
                     {!! Form::label('contact_person_phone_number','Phone Number',['class'=>'required-star']) !!}
-                    {!! Form::tel('contact_person_phone_number','',['class'=>'form-control contact_person_phone_number required','id'=>'contact_person_phone_number']) !!}
+                    <div class="contact_person_phone_number"></div>
+                    
+                    <!-- {!! Form::label('contact_person_phone_number','Phone Number',['class'=>'required-star']) !!}
+                    {!! Form::tel('contact_person_phone_number','',['class'=>'form-control contact_person_phone_number required','id'=>'contact_person_phone_number']) !!} -->
                 </div>
             </div><!--row-->
 
             <div class="row mt-4">
                 <div class="col-md-12 form-group">
-                    <h5>Optional Features</h5>
+                    <h5 class="section-heading">Optional Features</h5>
                 </div>
                 <div class="col-md-3 form-group">
-                    <label><i class="fa fa-unlock"></i> API for Lock Connection</label>
+                    <label class="opt_feature_label"><i class="fa fa-unlock"></i> API for Lock Connection</label>
                     <p>
                         <!-- <input name="is_api_lock_connection" type="checkbox" data-toggle="toggle" data-size="xs" data-on="Active" data-off="Inactive"> -->
                         <label class="switch">
@@ -107,7 +117,7 @@
                     </p>
                 </div>
                 <div class="col-md-3 form-group">
-                    <label><i class="fa fa-bell"></i> Push Notification</label>
+                    <label class="opt_feature_label"><i class="fa fa-bell"></i> Push Notification</label>
                     <p>
                         <!-- <input name="is_api_lock_connection" type="checkbox" data-toggle="toggle" data-size="xs" data-on="Active" data-off="Inactive"> -->
                         <label class="switch">
@@ -118,7 +128,7 @@
                     </p>
                 </div>
                 <div class="col-md-3 form-group">
-                    <label><i class="fa fa-comment"></i> Feedback Option</label>
+                    <label class="opt_feature_label"><i class="fa fa-comment"></i> Feedback Option</label>
                     <p>
                         <!-- <input name="is_api_lock_connection" type="checkbox" data-toggle="toggle" data-size="xs" data-on="Active" data-off="Inactive"> -->
                         <label class="switch">
@@ -132,7 +142,7 @@
 
             <div class="row mt-4">
                 <div class="col-md-12 form-group">
-                    <h5>Accepted means of Payment</h5>
+                    <h5 class="section-heading">Accepted means of Payment</h5>
                 </div>
                 <div class="col-md-3 form-group">
                     {!! Form::label('payment_methods','Choose Payment options',['class'=>'required-star']) !!}
@@ -160,13 +170,16 @@
                     <a href="{{ route('admin.sales-companies.index') }}" class="btn action-cancel btn-secondary btn-block">Cancel</a>
                 </div>
             </div>
+
         </div><!--card-body-->
         {!! Form::close() !!}
     </div><!--card-->
 @endsection
 @section('footer-script')
 <script src="{{ url('/js/proper.js') }}"></script>
-<script src="{{ url('/js/intlTelInput.js') }}"></script>
+<!-- <script src="{{ url('/js/intlTelInput.js') }}"></script> -->
+<script src="{{ url('/js/intlInputPhone.min.js') }}"></script>
+
 <script src="{{ url('/js/select2.min.js') }}"></script>
 <script src="{{ url('/js/custom.js') }}"></script>
 <script type="text/javascript">
@@ -225,17 +238,19 @@
 
         $(document).on("change", ".vebo-switch", function(){
             $(this).closest("p").find('span.switch-text').html('Inactive');
+            $(this).closest("p").find('span.slider').css('border', '1px solid #ABBECC');
             if($(this).prop("checked") == true)
             {
                 $(this).prop("checked", true);
+                $(this).closest("p").find('span.slider').css('border', '1px solid limeGreen');
                 $(this).closest("p").find('span.switch-text').html('Active');
 
             }
         });
     });
 
-    let internationalTelephoneField = document.querySelector("#contact_person_phone_number");
-    window.intlTelInput(internationalTelephoneField, {
+    // let internationalTelephoneField = document.querySelector("#contact_person_phone_number");
+    // window.intlTelInput(internationalTelephoneField, {
         // allowDropdown: false,
         // autoHideDialCode: false,
         // autoPlaceholder: "off",
@@ -256,11 +271,13 @@
         // placeholderNumberType: "MOBILE",
         // preferredCountries: ['cn', 'jp'],
         // separateDialCode: true,
-        utilsScript: "{{ url('/js/IntlTelUtils.js') }}",
-    });
+        // utilsScript: "{{ url('/js/IntlTelUtils.js') }}",
+    // });
+    $('.contact_person_phone_number').intlInputPhone();
 
     $(document).ready(function(){
         $("#payment_methods").select2({
+            closeOnSelect:false,
             templateResult: formatState,
             templateSelection: formatState
         });
