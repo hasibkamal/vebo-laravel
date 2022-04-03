@@ -58,7 +58,11 @@ class SalesCompaniesDataTable extends DataTable
      */
     public function query()
     {
-        $query = SalesCompany::getData();
+        $params['created_at'] = $this->created_at;
+        $params['sales_company'] = $this->sales_company;
+        $params['city'] = $this->city;
+        $params['status'] = $this->status;
+        $query = SalesCompany::getData($params);
         $data = $query->select([
             'sales_companies.*'
         ]);
