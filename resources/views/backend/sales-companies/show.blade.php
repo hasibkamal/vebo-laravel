@@ -63,7 +63,7 @@
                     <h5>Optional Features</h5>
                 </div>
                 <div class="col-md-4">
-                    <label><i class="fa fa-unlock"></i> API for Lock Connection</label><br>
+                    <label class="opt_feature_label"><i class="fa fa-unlock"></i> API for Lock Connection</label><br>
                     <label class="switch">
                         <input type="checkbox" <?= (isset($company_details->is_api_lock_connection) && $company_details->is_api_lock_connection == 1)?'checked':'';?>>
                         <span class="slider"></span>
@@ -71,7 +71,7 @@
                     <span class="switch-text"><?= (isset($company_details->is_api_lock_connection) && $company_details->is_api_lock_connection == 1)?'Active':'Inactive';?></span>
                 </div>
                 <div class="col-md-4">
-                    <label><i class="fa fa-bell"></i> Push Notification</label><br>
+                    <label class="opt_feature_label"><i class="fa fa-bell"></i> Push Notification</label><br>
                     <label class="switch">
                         <input type="checkbox" <?= (isset($company_details->is_push_notification) && $company_details->is_push_notification == 1)?'checked':'';?>>
                         <span class="slider"></span>
