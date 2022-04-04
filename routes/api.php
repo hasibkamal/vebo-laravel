@@ -39,4 +39,11 @@ Route::group(['middleware' => ['api'], 'namespace' => 'App\Http\Controllers\Api'
      */
     Route::get('/language-list','LanguageApiController@getLanguageList');
 
+
+    /**
+     * API: Employee Registration
+     * Type: POST
+     */
+    Route::post('/employee-registration', 'EmployeeApiController@registration');
+
 });

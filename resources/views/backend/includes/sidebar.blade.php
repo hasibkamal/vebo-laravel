@@ -25,6 +25,14 @@
                 icon="fa-solid fa-briefcase vebo-menu-icon"
                 :text="__('Sales Companies')" />
         </li>
+        <li class="c-sidebar-nav-item vebo-nav-item">
+            <x-utils.link
+                class="c-sidebar-nav-link vebo-nav-link"
+                :href="route('admin.sales-companies-admin.index')"
+                :active="activeClass(Route::is('sales-companies.index'), 'c-active')"
+                icon="fa-solid fa-users vebo-menu-icon"
+                :text="__('Sales Companies Admins')" />
+        </li>
 
         @if (
             $logged_in_user->hasAllAccess() ||

@@ -16,9 +16,10 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('type', [User::TYPE_ADMIN, User::TYPE_USER])->default(User::TYPE_USER);
+            $table->enum('type', [User::TYPE_ADMIN, User::TYPE_SALES_ADMIN, User::TYPE_CUSTOMER_ADMIN, User::TYPE_USER])->default(User::TYPE_USER);
             $table->string('name');
             $table->string('email')->unique()->nullable();
+            $table->string('phone')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->timestamp('password_changed_at')->nullable();

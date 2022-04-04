@@ -30,7 +30,7 @@ class LanguageApiController extends ApiController
             $this->checkApiRequest($request);
 
             $languages = DB::table('languages')
-                            ->select('id', 'language_code', 'language_name')
+                            ->select('id', 'code', 'name')
                             ->orderBy('id', 'ASC')
                             ->get();
 
