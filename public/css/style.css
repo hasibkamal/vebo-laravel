@@ -129,6 +129,43 @@
     border-radius: 0px 5px 5px 0px !important;
 }
 
+.selected-payment-methods {
+    width: 250px;
+    padding: 10px;
+}
+
+.selected-payment-methods .payment-career-icon {
+    width: max-content;
+    max-width: 200px;
+    float: left;
+    padding-left: 15px;
+}
+
+.selected-payment-methods .payment-career-icon img {
+    background: rgb(255 255 255);
+    border-radius: 5px;
+    width: 58px;
+    height: 34px;
+}
+
+.selected-payment-methods .payment-career-title {
+    float: left;
+    color: #323232;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 16px;
+    margin-left: 20px;
+}
+
+.selected-payment-methods .payment-career-title .verified {
+    font-family: 'Roboto', sans-serif;
+    color: #00AC42;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 35px;
+}
+
 
 /*************************
     Toggle Switch CSS
@@ -182,12 +219,32 @@
     right: 0;
 }
 
+.slider.checked:before {
+    position:absolute;
+    content:"";
+    width: 10px;
+    height:10px;
+    background:#ABBECC;
+    border-radius:30px;
+    transform:translateX(-14px);
+    transition:.4s;
+    margin: 1px 2px;
+    top: 0;
+    bottom: 0;
+    left: 14px;
+    right: 0;
+}
+
 input:checked + .slider:before {
     transform:translateX(0px);
-    background:limeGreen;
+    background: #005F9F;
+    border: 1px solid #ffffff;
 }
+
 input:checked + .slider {
-    box-shadow:0 0 0 0px limeGreen,0 0 0px limeGreen;
+    box-shadow:0 0 0 0px #005F9F,0 0 0px #005F9F;
+    background: #005F9F;
+    border: 2px solid #ffffff;
 }
 
 /* Style Flat */

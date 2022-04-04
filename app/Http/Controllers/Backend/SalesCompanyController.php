@@ -86,7 +86,7 @@ class SalesCompanyController
         $salesCompany->is_api_lock_connection = $request->input('is_api_lock_connection') ? 1 : 0;
         $salesCompany->is_push_notification = $request->input('is_push_notification') ? 1 : 0;
         $salesCompany->is_feedback_option = $request->input('is_feedback_option') ? 1 : 0;
-        $salesCompany->accepted_payment_methods = json_encode($request->input('accepted_payment_methods'));
+        $salesCompany->accepted_payment_methods = $request->input('accepted_payment_methods');
         $salesCompany->status = 1;
 
         if($request->hasFile('photo')){

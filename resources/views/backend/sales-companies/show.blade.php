@@ -10,7 +10,7 @@
     <div class="card vebo-content-card">
 		{{-- <div class="row"> --}}
 			<div class="col-md-12">
-				<p class="ml-3 mt-3"> <a href="javascript:void(0)" onclick="history.back()"><i class="fa fa-long-arrow-left"></i> <strong> Go Back</strong></a></p>
+				<p class="mt-3"> <a href="javascript:void(0)" onclick="history.back()" style="text-decoration: none;"><i class="fa fa-long-arrow-left"></i> <strong> Go Back</strong></a></p>
 			</div>
 		{{-- </div> --}}
 
@@ -20,7 +20,12 @@
                 <div class="col-md-4">
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="https://wallpaperaccess.com/full/3853138.jpg" class="rounded-circle" height="75" width="75">
+                            @php
+                                $imgSrc = "uploads/company-logo/demo-logo.png";
+                                if($company_details->company_logo != null && file_exists(public_path().'/uploads/company-logo/'.$company_details->company_logo)) $imgSrc = "uploads/company-logo/".$company_details->company_logo;
+                                
+                            @endphp
+                            <img src="{{ asset($imgSrc) }}" class="rounded-circle" height="75" width="75">
                         </div>
                         <div class="col-md-8">
                             <p><strong>{{ $company_details->company_name }}</strong> <br>
@@ -66,7 +71,7 @@
                     <label class="opt_feature_label"><i class="fa fa-unlock"></i> API for Lock Connection</label><br>
                     <label class="switch">
                         <input type="checkbox" <?= (isset($company_details->is_api_lock_connection) && $company_details->is_api_lock_connection == 1)?'checked':'';?>>
-                        <span class="slider"></span>
+                        <span class="slider <?= (isset($company_details->is_api_lock_connection) && $company_details->is_api_lock_connection == 1)?'checked':'';?>"></span>
                     </label>
                     <span class="switch-text"><?= (isset($company_details->is_api_lock_connection) && $company_details->is_api_lock_connection == 1)?'Active':'Inactive';?></span>
                 </div>
@@ -74,7 +79,7 @@
                     <label class="opt_feature_label"><i class="fa fa-bell"></i> Push Notification</label><br>
                     <label class="switch">
                         <input type="checkbox" <?= (isset($company_details->is_push_notification) && $company_details->is_push_notification == 1)?'checked':'';?>>
-                        <span class="slider"></span>
+                        <span class="slider <?= (isset($company_details->is_push_notification) && $company_details->is_push_notification == 1)?'checked':'';?>"></span>
                     </label>
                     <span class="switch-text"><?= (isset($company_details->is_push_notification) && $company_details->is_push_notification == 1)?'Active':'Inactive';?></span>
                 </div>
@@ -82,7 +87,7 @@
                     <label><i class="fa fa-comment"></i> Feedback Option</label><br>
                     <label class="switch">
                         <input type="checkbox" <?= (isset($company_details->is_feedback_option) && $company_details->is_feedback_option == 1)?'checked':'';?>>
-                        <span class="slider"></span>
+                        <span class="slider <?= (isset($company_details->is_feedback_option) && $company_details->is_feedback_option == 1)?'checked':'';?>"></span>
                     </label>
                     <span class="switch-text"><?= (isset($company_details->is_feedback_option) && $company_details->is_feedback_option == 1)?'Active':'Inactive';?></span>
                 </div>
@@ -95,8 +100,25 @@
             </div>
             <div class="row mt-5">
                 <div class="col-md-12 form-group">
-                    <h5>Accepted means of Payment</h5>
+                    <h5>Payment Methods</h5>
                 </div>
+                @php
+                    $pMethods = explode(',', $company_details->accepted_payment_methods);
+                @endphp
+
+                @foreach($pMethods as $pMethod)
+                    @if(isset($paymentMethods[$pMethod]))
+                    <div class="selected-payment-methods">
+                        <div class="payment-career-icon">
+                            <img src="{{ asset('img/payment_methods/'. strtolower(str_replace(' ', '-', $paymentMethods[$pMethod])) .'.svg') }}" alt="{{ $paymentMethods[$pMethod] }}">
+                        </div>
+                        <div class="payment-career-title">
+                            {{ $paymentMethods[$pMethod] }}<br>
+                            <span class="verified">Verified</span>
+                        </div>
+                    </div>
+                    @endif
+                @endforeach
             </div>
 
             <div class="row mt-4">
