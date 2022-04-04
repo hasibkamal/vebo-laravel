@@ -9,11 +9,9 @@
 @section('content')
     <div class="card vebo-content-card">
 		{{-- <div class="row"> --}}
-            
 			<div class="col-md-12">
 				<p class="mt-3"> <a href="javascript:void(0)" onclick="history.back()" style="text-decoration: none;"><i class="fa fa-long-arrow-left"></i> <strong> Go Back</strong></a></p>
 			</div>
-
 		{{-- </div> --}}
 
         <div class="card-body">
