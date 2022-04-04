@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\DataTables\PgMembersDataTable;
+use App\DataTables\SalesCompaniesDataTable;
 use App\Models\Country;
 use App\Models\Language;
 use App\Models\PaymentMethod;
@@ -19,7 +19,7 @@ class SalesCompanyController
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
 
-    public function index(PgMembersDataTable $dataTable, Request $request)
+    public function index(SalesCompaniesDataTable $dataTable, Request $request)
     {
         $data = array();
         $params = $this->getSearchParams($request);
