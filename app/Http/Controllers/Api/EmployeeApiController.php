@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Api\Transformers\EmployeeTransformer;
+use App\Domains\Auth\Models\User;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use function response;
 
 class EmployeeApiController extends ApiController
@@ -82,6 +84,11 @@ class EmployeeApiController extends ApiController
                 {
                     throw new \Exception(__('validation.required',['attribute'=>'email']));
                 }
+
+                $user = User::where('email',$request->input('email'))->first();
+                if($user){ //Email address existence checking in user table
+                    throw new \Exception('The email address is already exist!');
+                }
             }
             else if($request->input('user_medium') == 'phone') {
                 if ($request->input('cell_phone_country_code') == null) {
@@ -90,13 +97,37 @@ class EmployeeApiController extends ApiController
                 if ($request->input('cell_phone_number') == null) {
                     throw new \Exception(__('validation.required', ['attribute' => 'cell phone number']));
                 }
+
+                $cellPhoneCountryCode = $request->input('cell_phone_country_code');
+                $cellPhoneNumber = $request->input('cell_phone_number');
+                $phoneNumber = $cellPhoneCountryCode.$cellPhoneNumber;
+                $user = User::where('phone',$phoneNumber)->first();
+                if($user){ //Cell phone number existence checking in user table
+                    throw new \Exception('The cell phone number is already exist!');
+                }
+
             }else{
                 throw new \Exception('Invalid user medium!');
             }
 
+            if($request->input('user_medium') == 'email'){
+                $user = User::firstOrNew(['email'=>$request->input('email')]);
+                $user->email = $request->input('email');
+            }else{
+                $cellPhoneCountryCode = $request->input('cell_phone_country_code');
+                $cellPhoneNumber = $request->input('cell_phone_number');
+                $phoneNumber = $cellPhoneCountryCode.$cellPhoneNumber;
+                $user = User::firstOrNew(['phone'=>$phoneNumber]);
+                $user->phone = $phoneNumber;
+            }
 
-            $employee = New Employee();
-            $employee->employee_number = employeeNumber();
+            $user->type = 'employee';
+            $user->name = $request->input('first_name') .' '. $request->input('last_name');
+            $user->password = Hash::make(123456);
+            $user->save();
+
+            $employee = Employee::firstOrNew(['user_id'=>$user->id]);
+            $employee->employee_number = $employee->employee_number ?? employeeNumber();
             $employee->language = $request->input('language');
             $employee->first_name = $request->input('first_name');
             $employee->last_name = $request->input('last_name');
