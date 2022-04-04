@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('languages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('language_code')->unique();
-            $table->string('language_name')->nullable();
+            $table->string('code')->unique();
+            $table->string('name')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

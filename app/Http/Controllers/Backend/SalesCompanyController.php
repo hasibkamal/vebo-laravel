@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\DataTables\SalesCompaniesDataTable;
+use App\DataTables\PgMembersDataTable;
 use App\Models\Country;
 use App\Models\Language;
 use App\Models\PaymentMethod;
@@ -19,7 +19,7 @@ class SalesCompanyController
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
 
-    public function index(SalesCompaniesDataTable $dataTable,Request $request)
+    public function index(PgMembersDataTable $dataTable, Request $request)
     {
         $data = array();
         $params = $this->getSearchParams($request);
@@ -68,7 +68,7 @@ class SalesCompanyController
 
 
         $contact_number = '+'.$request->input('carrierCode').'-'.$request->input('contact_person_phone_number');
-        
+
         $salesCompany = new SalesCompany();
         $salesCompany->company_id = $request->input('company_id');
         $salesCompany->company_name = $request->input('company_name');
@@ -140,7 +140,7 @@ class SalesCompanyController
                                     )
                                     ->first();
         $data['paymentMethods'] = PaymentMethod::pluck('name', 'id');
-        
+
         return view("backend.sales-companies.show", $data);
     }
 
