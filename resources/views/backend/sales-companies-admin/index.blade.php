@@ -12,7 +12,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-8 pl-0">
-                     <input class="form-control" type="text" placeholder="Search by company name" aria-label="Search">
+                     <input class="form-control" type="text" placeholder="Search by company name, first, last name or email address of the administrator person" aria-label="Search">
                 </div><!--col-->
                 <div class="col-sm-4 pull-right">
                     <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
@@ -30,21 +30,21 @@
                     {!! Form::open(['url'=>'admin/sales-companies', 'method'=>'get', 'class'=>'filter-form']) !!}
                     <div class="row vebo-filter-row vebo-display-none">
                         <div class="col-sm-3">
-                            {!! Form::label('created_at','Created Date',['class'=>'']) !!}
-                            {!! Form::date('created_at',$params['created_at']??'',['class'=>'form-control filter-sales-companies','placeholder'=>'']) !!}
+                            {!! Form::label('created_at','Creation Date',['class'=>'']) !!}
+                            {!! Form::date('created_at',$params['created_at']??'',['class'=>'form-control filter-sales-companies','placeholder'=>'Creation Date']) !!}
                         </div>
-                        {{-- <div class="col-sm-3">
+                        <div class="col-sm-3">
                             {!! Form::label('sales_company','Sales Company',['class'=>'']) !!}
-                            {!! Form::select('sales_company',$sales_companies,$params['sales_company']??'',['class'=>'form-control filter-sales-companies']) !!}
-                        </div> --}}
-                        {{-- <div class="col-sm-3">
-                            {!! Form::label('city','City',['class'=>'']) !!}
-                            {!! Form::select('city',$cities,$params['city']??'',['class'=>'form-control filter-sales-companies']) !!}
-                        </div> --}}
-                        {{-- <div class="col-sm-3">
+                            {!! Form::select('sales_company',$sales_companies, $params['sales_company']??'',['class'=>'form-control filter-sales-companies','placeholder'=>'Sales Company']) !!}
+                        </div>
+                        <div class="col-sm-3">
+                            {!! Form::label('name','Name',['class'=>'']) !!}
+                            {!! Form::select('name',$names, $params['name']??'',['class'=>'form-control filter-sales-companies','placeholder'=>'Name']) !!}
+                        </div>
+                        <div class="col-sm-3">
                             {!! Form::label('status','Status',['class'=>'']) !!}
-                            {!! Form::select('status',$status,$params['status']??'',['class'=>'form-control filter-sales-companies']) !!}
-                        </div> --}}
+                            {!! Form::select('status',$status, $params['status']??'',['class'=>'form-control filter-sales-companies','placeholder'=>'Status']) !!}
+                        </div>
                     </div>
                     {!! Form::close() !!}
                 </div>
@@ -85,6 +85,7 @@
                                 <ul class="action-options">
                                     <li class="details-action"><a href="#">Details</a></li>
                                     <li class="edit-action"><a href="#">Edit</a></li>
+                                    <li class="edit-action"><a href="#">Deactivate</a></li>
                                 </ul>
                                 </div>
                             </td>

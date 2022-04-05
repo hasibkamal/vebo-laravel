@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Models\SalesCompany;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SalesCompanyAdminController extends Controller
 {
@@ -12,9 +13,16 @@ class SalesCompanyAdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view("backend.sales-companies-admin.index");
+        $data = array();
+        $params = $this->getSearchParams($request);
+        $data['params'] = $params;
+        $data['sales_companies'] = SalesCompany::pluck('company_name','id');
+        $data['names'] = SalesCompany::pluck('contact_person_first_name', 'contact_person_first_name');
+        $data['status'] = ["New", "Active", "In-active", "Registrationn Pending"];
+      
+        return view("backend.sales-companies-admin.index", $data);
     }
 
     /**
@@ -81,5 +89,26 @@ class SalesCompanyAdminController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getSearchParams($request){
+        $params =[];
+        if(isset($request->created_at) && !empty($request->created_at)) {
+            $params['created_at'] = $request->created_at;
+        }
+
+        if(isset($request->sales_company) && !empty($request->sales_company)) {
+            $params['sales_company'] = $request->sales_company;
+        }
+        if(isset($request->city) && !empty($request->city)) {
+            $params['city'] =  $request->city;
+        }
+
+        if(isset($request->status) && !empty($request->status)) {
+            $params['status'] =  $request->status;
+        }
+
+        return $params;
+
     }
 }
