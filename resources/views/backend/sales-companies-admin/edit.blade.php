@@ -17,39 +17,39 @@
             <div class="row mt-5 vebo-w100">
                 <div class="col-md-3 form-group">
                     {!! Form::label('admin_id','Admin ID',['class'=>'']) !!}
-                    {!! Form::hidden('admin_id',$adminId) !!}
-                    <p class="text-secondary">{{ $adminId }}</p>
+                    {!! Form::hidden('admin_id',$company_details->admin_id) !!}
+                    <p class="text-secondary">{{ $company_details->admin_id }}</p>
                 </div>
                 <div class="col-md-3 form-group">
                     {!! Form::label('admin_id','Creation Date',['class'=>'']) !!}
-                    {!! Form::hidden('created_date',$adminId) !!}
-                    <p class="text-secondary">16.03.2022</p>
+                    {{-- {!! Form::hidden('created_date',$company_details) !!} --}}
+                    <p class="text-secondary">{{ date('d-m-Y', strtotime($company_details->created_at)) }}</p>
                 </div>
             </div><!--row-->
 
             <div class="row mt-4">
                 <div class="col-md-3 form-group">
                     {!! Form::label('sales_company','Sales company',['class'=>'required-star']) !!}
-                    {!! Form::select('sales_company', $sales_companies, '',['class'=>'form-control required','placeholder'=>'Select company']) !!}
+                    {!! Form::select('sales_company', $sales_companies, $company_details->sales_company,['class'=>'form-control required','placeholder'=>'Select company']) !!}
                 </div>
                 <div class="col-md-3 form-group">
                     {!! Form::label('language','Language',['class'=>'required-star']) !!}
-                    {!! Form::select('language',$languages,'',['class'=>'form-control required','placeholder'=>'Select one']) !!}
+                    {!! Form::select('language',$languages, $company_details->language,['class'=>'form-control required','placeholder'=>'Select one']) !!}
                 </div>
             </div><!--row-->
 
             <div class="row mt-4">
                 <div class="col-md-3 form-group">
                     {!! Form::label('first_name','First Name',['class'=>'required-star']) !!}
-                    {!! Form::text('first_name','',['class'=>'form-control required','placeholder'=>'First name']) !!}
+                    {!! Form::text('first_name', $company_details->first_name,['class'=>'form-control required','placeholder'=>'First name']) !!}
                 </div>
                 <div class="col-md-3 form-group">
                     {!! Form::label('last_name','Last Name',['class'=>'required-star']) !!}
-                    {!! Form::text('last_name','',['class'=>'form-control required','placeholder'=>'Last name']) !!}
+                    {!! Form::text('last_name', $company_details->last_name, ['class'=>'form-control required','placeholder'=>'Last name']) !!}
                 </div>
                 <div class="col-md-3 form-group">
                     {!! Form::label('email','E-mail',['class'=>'required-star']) !!}
-                    {!! Form::text('email','',['class'=>'form-control required','placeholder'=>'eg. john@gmail.com']) !!}
+                    {!! Form::text('email', $company_details->email,['class'=>'form-control required','placeholder'=>'eg. john@gmail.com']) !!}
                 </div>
             </div>
 

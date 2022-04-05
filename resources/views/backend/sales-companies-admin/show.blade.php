@@ -19,38 +19,37 @@
             <div class="row mt-5">
                 <div class="col-md-3 offset-md-1">
                     <p><strong>Admin ID</strong></p>
-                    <p>SA000002</p>
+                    <p>{!! $company_details->admin_id !!}</p>
                 </div>
                 <div class="col-md-4">
                     <p><strong>Creation Date</strong></p>
-                    {{-- {{ date('d-m-Y', strtotime($company_details->created_at)) }}</p> --}}
-                    2022-02-01
+                    {{ date('d-m-Y', strtotime($company_details->created_at)) }}</p>
                 </div>
             </div>
             <div class="row mt-5">
                 <div class="col-md-3 offset-md-1">
                     <p><strong>Sales Company</strong></p>
-                    <p>VEBO Gestronmy</p>
+                    <p>{!! $company_details->sales_company !!}</p>
                 </div>
                 <div class="col-md-4">
                     <p><strong>Language</strong></p>
-                    German
+                    {!! $company_details->language !!}
                 </div>
             </div>
             <div class="row mt-5">
                 <div class="col-md-3 offset-md-1">
                     <p><strong>Name</strong></p>
-                    <p>John Doe</p>
+                    <p>{!! $company_details->first_name !!} {!! $company_details->last_name !!}</p>
                 </div>
                 <div class="col-md-4">
                     <p><strong>E-mail</strong></p>
-                    johndoe@gmail.com
+                    {!! $company_details->email !!}
                 </div>
             </div>
 
             <div class="row mt-4">
                 <div class="col-md-3 form-group">
-                    <a href="{{ route('admin.sales-companies-admin.edit', 1) }}" class="btn btn-submit btn-primary btn-block"><i class="fa fa-pen"></i>  Edit</a>
+                    <a href="{{ route('admin.sales-companies-admin.edit', $company_details->id) }}" class="btn btn-submit btn-primary btn-block"><i class="fa fa-pen"></i>  Edit</a>
                 </div>
             </div>
         </div><!--card-body-->

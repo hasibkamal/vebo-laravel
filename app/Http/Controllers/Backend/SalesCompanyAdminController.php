@@ -7,6 +7,7 @@ use App\Models\SalesCompany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\SalesCompanyAdmin;
 
 class SalesCompanyAdminController extends Controller
 {
@@ -22,6 +23,7 @@ class SalesCompanyAdminController extends Controller
         $data['params'] = $params;
         $data['sales_companies'] = SalesCompany::pluck('company_name','id');
         $data['names'] = SalesCompany::pluck('contact_person_first_name', 'contact_person_first_name');
+        $data['sales_company_admins'] = SalesCompanyAdmin::orderBy('id', 'DESC')->get();
         $data['status'] = ["New", "Active", "In-active", "Registrationn Pending"];
       
         return view("backend.sales-companies-admin.index", $data);
@@ -36,8 +38,8 @@ class SalesCompanyAdminController extends Controller
     {
         $prefix = 'SA';
         $data['adminId'] = DB::select("SELECT CONCAT('$prefix',LPAD(IFNULL(MAX(SUBSTR(table2.company_id,-5,5) )+1,1),5,'0')) AS company_id FROM (SELECT * FROM sales_companies ) AS table2 WHERE table2.company_id LIKE '$prefix%'")[0]->company_id;
-        $data['languages'] = Language::pluck('language_name','id');
-        $data['sales_companies'] = SalesCompany::pluck('company_name','id');
+        $data['languages'] = Language::pluck('language_name','language_name');
+        $data['sales_companies'] = SalesCompany::pluck('company_name','company_name');
 
         return view('backend.sales-companies-admin.create', $data);
     }
@@ -65,16 +67,15 @@ class SalesCompanyAdminController extends Controller
             ]
         );
 
-        //TODO:: Before store action need to identify model class
-        $salesCompanyAdmin = new SalesCompany();
-        $salesCompanyAdmin->company_id = $request->input('company_id');
-        $salesCompanyAdmin->company_name = $request->input('company_name');
+        $salesCompanyAdmin = new SalesCompanyAdmin();
+        $salesCompanyAdmin->admin_id      = $request->input('admin_id');
+        $salesCompanyAdmin->sales_company = $request->input('sales_company');
         $salesCompanyAdmin->language = $request->input('language');
-        $salesCompanyAdmin->contact_person_first_name = $request->input('first_name');
-        $salesCompanyAdmin->contact_person_last_name = $request->input('last_name');
-        $salesCompanyAdmin->contact_person_email = $request->input('email');
-        $salesCompanyAdmin->is_api_lock_connection = $request->input('is_email_sent') ? 1 : 0;
-        // $salesCompanyAdmin->status = 1;
+        $salesCompanyAdmin->first_name = $request->input('first_name');
+        $salesCompanyAdmin->last_name = $request->input('last_name');
+        $salesCompanyAdmin->email = $request->input('email');
+        $salesCompanyAdmin->is_email_sent = $request->input('is_email_sent') ? 1 : 0;
+        $salesCompanyAdmin->status = 1;
         $salesCompanyAdmin->save();
 
         return redirect(route('admin.sales-companies-admin.index'))
@@ -89,22 +90,8 @@ class SalesCompanyAdminController extends Controller
      */
     public function show($id)
     {
-        $data['company_details'] = DB::table('sales_companies as sc')
-                                    ->join('languages as lang', 'lang.id', 'sc.language')
-                                    ->join('countries as contr', 'contr.country_code', 'sc.country')
-                                    ->where('sc.id', $id)
-                                    ->where('sc.status', 1)
-                                    ->select(
-                                        'sc.company_id',
-                                        'sc.company_name',
-                                        'lang.language_name',
-                                        'sc.contact_person_first_name',
-                                        'sc.contact_person_last_name',
-                                        'sc.contact_person_email',
-                                        'sc.accepted_payment_methods',
-                                        'sc.created_at'
-                                    )
-                                    ->first();
+        $data['company_details'] = SalesCompanyAdmin::find($id);
+                                
         return view("backend.sales-companies-admin.show", $data);
     }
 
@@ -116,11 +103,12 @@ class SalesCompanyAdminController extends Controller
      */
     public function edit($id)
     {
-        $prefix = 'SA';
-        $data['adminId'] = DB::select("SELECT CONCAT('$prefix',LPAD(IFNULL(MAX(SUBSTR(table2.company_id,-5,5) )+1,1),5,'0')) AS company_id FROM (SELECT * FROM sales_companies ) AS table2 WHERE table2.company_id LIKE '$prefix%'")[0]->company_id;
+        // $prefix = 'SA';
+        // $data['adminId'] = DB::select("SELECT CONCAT('$prefix',LPAD(IFNULL(MAX(SUBSTR(table2.company_id,-5,5) )+1,1),5,'0')) AS company_id FROM (SELECT * FROM sales_companies ) AS table2 WHERE table2.company_id LIKE '$prefix%'")[0]->company_id;
         $data['languages'] = Language::pluck('language_name','id');
 
         $data['sales_companies'] = SalesCompany::pluck('company_name','id');
+        $data['company_details'] = SalesCompanyAdmin::find($id);
 
         return view('backend.sales-companies-admin.edit', $data);
     }
@@ -134,6 +122,29 @@ class SalesCompanyAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'admin_id'       => 'required',
+            'sales_company'  => 'required',
+            'language'       => 'required',
+            'first_name'     => 'required',
+            'last_name'      => 'required',
+            'email'          => 'required',
+        ],
+            [
+                'first_name.required'           => 'First name field is required',
+                'last_name.required'           => 'Last name field is required',
+                'email.required'           => 'Email name field is required',
+            ]
+        );
+
+        $salesCompanyAdmin = SalesCompanyAdmin::find($id);
+        $salesCompanyAdmin->admin_id      = $request->input('admin_id');
+        $salesCompanyAdmin->sales_company = $request->input('sales_company');
+        $salesCompanyAdmin->language = $request->input('language');
+        $salesCompanyAdmin->first_name = $request->input('first_name');
+        $salesCompanyAdmin->last_name = $request->input('last_name');
+        $salesCompanyAdmin->email = $request->input('email');
+        $salesCompanyAdmin->save();
 
         return redirect(route('admin.sales-companies-admin.index'))
                 ->with('flash_success','Sales company admin was successfully updated.');

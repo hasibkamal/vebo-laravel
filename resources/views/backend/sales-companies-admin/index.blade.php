@@ -59,6 +59,7 @@
             </div>
             <div class="row mt-4">
                 <div class="col">
+                    @if(count($sales_company_admins) > 0)
                       <table class="table">
                         <thead>
                           <tr>
@@ -72,13 +73,20 @@
                           </tr>
                         </thead>
                         <tbody class="table-light">
+                          @foreach ($sales_company_admins as $sales_company_admin)
                           <tr>
-                            <th scope="row">2021.09.07</th>
-                            <td>123</td>
-                            <td>ABC limited</td>
-                            <td>ROBI</td>
-                            <td>robi@gmail.com</td>
-                            <td><i class='fa fa-circle text-success font-xs'></i></td>
+                            <th scope="row">{{ \Carbon\Carbon::parse($sales_company_admin->created_at)->format('Y-m-d') }}</th>
+                            <td>{!! $sales_company_admin->admin_id !!}</td>
+                            <td>{!! $sales_company_admin->sales_company !!}</td>
+                            <td>{!! $sales_company_admin->first_name !!} {!! $sales_company_admin->last_name !!}</td>
+                            <td>{!! $sales_company_admin->email !!}</td>
+                            <td>
+                                @if($sales_company_admin->status == 1)
+                                <i class='fa fa-circle text-success font-xs'></i>
+                                @else
+                                <i class='fa fa-circle text-danger font-xs'></i>
+                                @endif
+                            </td>
                             <td>
                                 <a href="javascript:void(0)" class="action-link" title="Sales comapny details"><i class="c-icon c-icon-lg cil-menu"></i></a>
                                 <div class="action-options-append vebo-display-none">
@@ -90,8 +98,16 @@
                                 </div>
                             </td>
                           </tr>
+                          @endforeach  
                         </tbody>
                       </table>
+                    @else
+                     <div class="row">
+                        <div class="col-md-12">
+                            <h4>No Data Found</h4>
+                        </div>
+                     </div>
+                    @endif
                 </div><!--col-->
             </div><!--row-->
         </div><!--card-body-->
