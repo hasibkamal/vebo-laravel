@@ -83,7 +83,7 @@
                                 <a href="javascript:void(0)" class="action-link" title="Sales comapny details"><i class="c-icon c-icon-lg cil-menu"></i></a>
                                 <div class="action-options-append vebo-display-none">
                                 <ul class="action-options">
-                                    <li class="details-action"><a href="#">Details</a></li>
+                                    <li class="details-action"><a href="{!! route('admin.sales-companies-admin.show', 1) !!}">Details</a></li>
                                     <li class="edit-action"><a href="#">Edit</a></li>
                                     <li class="edit-action"><a href="#">Deactivate</a></li>
                                 </ul>

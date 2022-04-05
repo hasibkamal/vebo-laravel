@@ -12,14 +12,18 @@
         {!! Form::open(['route'=>'admin.sales-companies-admin.store', 'method'=>'post','enctype'=>'multipart/form-data','id'=>'dataForm']) !!}
         <div class="card-body">
 
-            <h5 class="vebo-section-heading-title"><strong> Add New Sales Company Admin</strong></h5>
+            <h5 class="vebo-section-heading-title"><strong> Edit Sales Company Admin Details</strong></h5>
 
             <div class="row mt-5 vebo-w100">
-                
                 <div class="col-md-3 form-group">
-                    {!! Form::label('admin_id','Admin ID',['class'=>'required-star']) !!}
+                    {!! Form::label('admin_id','Admin ID',['class'=>'']) !!}
                     {!! Form::hidden('admin_id',$adminId) !!}
                     <p class="text-secondary">{{ $adminId }}</p>
+                </div>
+                <div class="col-md-3 form-group">
+                    {!! Form::label('admin_id','Creation Date',['class'=>'']) !!}
+                    {!! Form::hidden('created_date',$adminId) !!}
+                    <p class="text-secondary">16.03.2022</p>
                 </div>
             </div><!--row-->
 
@@ -46,19 +50,6 @@
                 <div class="col-md-3 form-group">
                     {!! Form::label('email','E-mail',['class'=>'required-star']) !!}
                     {!! Form::text('email','',['class'=>'form-control required','placeholder'=>'eg. john@gmail.com']) !!}
-                </div>
-            </div>
-
-            <div class="row mt-4">
-                
-                <div class="col-md-8 form-group">
-                    <p>
-                        <label class="switch">
-                            <input type="checkbox" class="vebo-switch" name="is_email_sent">
-                            <span class="slider"></span>
-                        </label>
-                        <span class="switch-text">Send E-mail Invitation to the Sales Company Admin</span>
-                    </p>
                 </div>
             </div>
 
@@ -98,8 +89,8 @@
         let redirectURL = "{{ route('admin.sales-companies-admin.index') }}";
 
         Swal.fire({
-            title: 'Cancel Sales Company admin Registration?',
-            text: "When you abort all data is discarded.Are you sure reallywant to cancel this sales company admin registration",
+            title: 'Discard Changes??',
+            text: "If you go back without saving, \n all changes will be discarded. Are you sure \n you really want to discard the changes?",
             showCancelButton: true,
             confirmButtonText: 'Yes',
             cancelButtonText: "No",
