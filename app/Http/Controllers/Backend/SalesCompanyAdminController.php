@@ -170,4 +170,24 @@ class SalesCompanyAdminController extends Controller
         return $params;
 
     }
+
+    public function deactivedSalesAdminList(Request $request)
+    {
+        $data = array();
+        $params = $this->getSearchParams($request);
+        $data['params'] = $params;
+        $data['sales_companies'] = SalesCompany::pluck('company_name','id');
+        $data['names'] = SalesCompany::pluck('contact_person_first_name', 'contact_person_first_name');
+        $data['status'] = ["New", "Active", "In-active", "Registrationn Pending"];
+      
+        return view("backend.sales-companies-admin.deactivate-admin", $data);
+    }
+
+    public function deactivedSalesAdmin(Request $request)
+    {
+        dd(3);
+        //todo:: write de activation code here
+        return redirect(route('admin.sales-companies-admin.index'))
+                ->with('flash_success','Sales Company Admin John Doe from the Sales Company VEBO Gastronomy was successfully deactivated..');
+    }
 }

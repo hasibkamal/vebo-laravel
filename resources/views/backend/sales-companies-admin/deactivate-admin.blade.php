@@ -84,8 +84,8 @@
                                 <div class="action-options-append vebo-display-none">
                                 <ul class="action-options">
                                     <li class="details-action"><a href="{!! route('admin.sales-companies-admin.show', 1) !!}">Details</a></li>
-                                    <li class="edit-action"><a href="{!! route('admin.sales-companies-admin.edit', 1) !!}">Edit</a></li>
-                                    <li class="action-deactivate"><a href="{!! route('admin.deactive-sales-companies-admin') !!}">Deactivate</a></li>
+                                    <li class="edit-action"><a href="#">Edit</a></li>
+                                    <li class="edit-action"><a href="#">Deactivate</a></li>
                                 </ul>
                                 </div>
                             </td>
@@ -108,25 +108,6 @@
         {!! $dataTable->scripts() !!}
     @endif --}}
     <script type="text/javascript">
-
-        $(document.body).on('click', '.action-deactivate', function (ev) {
-                ev.preventDefault();
-                let redirectURL = "{{ route('admin.deactive-sales-companies-admin') }}";
-
-                Swal.fire({
-                    title: 'Deactivate Sales Company Admin?',
-                    text: "Are you sure you really want to deactivate the Sales Company Admin John Doe from the Sales Company VEBO Gastronomy?",
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes',
-                    cancelButtonText: "No",
-                    confirmButtonClass: "btn-primary",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = redirectURL;
-                    }
-                })
-        });
-
         $(document.body).on('click', '.action-delete', function (ev) {
             ev.preventDefault();
             let URL = $(this).attr('href');
@@ -163,8 +144,6 @@
         $(document.body).on('change',".filter-sales-companies",function (ev){
             $('.filter-form').submit();
         })
-
-
         @if(isset($params['created_at']) || isset($params['sales_company']) || isset($params['city']) || isset($params['status']))
         $('.vebo-filter-btn').trigger('click');
         @endif

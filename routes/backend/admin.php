@@ -15,4 +15,7 @@ Route::get('dashboard', [DashboardController::class, 'index'])
 
 
 Route::resource('sales-companies',SalesCompanyController::class);
+
+// Route::get('deactive-sales-companies-admin', [SalesCompanyAdminController::class, 'deactivedSalesAdminList'])->name('deactive-sales-companies-admin');
+Route::get('deactive-sales-companies-admin', [SalesCompanyAdminController::class, 'deactivedSalesAdmin'])->name('deactive-sales-companies-admin');
 Route::resource('sales-companies-admin', SalesCompanyAdminController::class);
