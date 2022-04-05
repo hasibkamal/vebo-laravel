@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\Language;
 use App\Models\SalesCompany;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class SalesCompanyAdminController extends Controller
@@ -32,7 +34,12 @@ class SalesCompanyAdminController extends Controller
      */
     public function create()
     {
-        //
+        $prefix = 'SA';
+        $data['adminId'] = DB::select("SELECT CONCAT('$prefix',LPAD(IFNULL(MAX(SUBSTR(table2.company_id,-5,5) )+1,1),5,'0')) AS company_id FROM (SELECT * FROM sales_companies ) AS table2 WHERE table2.company_id LIKE '$prefix%'")[0]->company_id;
+        $data['languages'] = Language::pluck('language_name','id');
+        $data['sales_companies'] = SalesCompany::pluck('company_name','id');
+
+        return view('backend.sales-companies-admin.create', $data);
     }
 
     /**

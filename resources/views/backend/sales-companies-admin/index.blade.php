@@ -16,7 +16,7 @@
                 </div><!--col-->
                 <div class="col-sm-4 pull-right">
                     <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
-                        <a href="{{ route('admin.sales-companies.create') }}" class="btn btn-sm btn-success vebo-create-btn" title="Create new"
+                        <a href="{{ route('admin.sales-companies-admin.create') }}" class="btn btn-sm btn-success vebo-create-btn" title="Create new"
                             data-original-title="Create New">
                             <i class="fa fa-plus"></i> Add New Sales Company Admin
                         </a>
@@ -27,7 +27,7 @@
         <div class="card-body">
             <div class="row vebo-filter-bg vebo-filter-section">
                 <div class="col-sm-10 pull-left vebo-filter-options">
-                    {!! Form::open(['url'=>'admin/sales-companies', 'method'=>'get', 'class'=>'filter-form']) !!}
+                    {!! Form::open(['url'=>'admin/sales-companies-admin', 'method'=>'get', 'class'=>'filter-form']) !!}
                     <div class="row vebo-filter-row vebo-display-none">
                         <div class="col-sm-3">
                             {!! Form::label('created_at','Creation Date',['class'=>'']) !!}
